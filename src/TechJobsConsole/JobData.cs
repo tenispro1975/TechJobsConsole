@@ -59,8 +59,8 @@ namespace TechJobsConsole
         }
 
         /*
-         * Load and parse data from job_data.csv
-         */
+        * Load and parse data from job_data.csv
+        */
         private static void LoadData()
         {
 
@@ -138,5 +138,46 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach (string key in row.Keys)
+                {
+                    string aValue = row[key];
+                    if (aValue.ToLower().Contains(searchTerm.ToLower()))
+                    //if (job[name].IndexOf(searchTerm, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        //if (!jobs.Contains(job))
+                        //{
+                            jobs.Add(row);
+                            break;
+                        //}
+
+                    } 
+                }
+            }
+            return jobs;
+
+        }
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
     }
 }

@@ -61,16 +61,20 @@ namespace TechJobsConsole
                     List<Dictionary<string, string>> searchResults;
 
                     // Fetch results
-                    if (columnChoice.Equals("all"))
+                    if (columnChoices.ContainsKey(columnChoice))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        //Console.WriteLine("Search all fields not yet implemented.");
+                        PrintJobs(searchResults);
                     }
                     else
                     {
-                        searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
+                        //searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
+                        //PrintJobs(searchResults);
+                        Console.WriteLine("No results for this search");
                     }
                 }
+                    
             }
         }
 
@@ -102,10 +106,12 @@ namespace TechJobsConsole
                 string input = Console.ReadLine();
                 choiceIdx = int.Parse(input);
 
-                if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
-                {
-                    Console.WriteLine("Invalid choices. Try again.");
-                }
+                //{
+                    if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
+                    {
+                        Console.WriteLine("Invalid choices. Try again.");
+                    } 
+                //}
                 else
                 {
                     isValidChoice = true;
@@ -118,7 +124,21 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            int count = someJobs.Count;
+            if (count == 0)
+            {
+                Console.WriteLine("Sorry no results for that search");
+            }
+
+                foreach (Dictionary<string, string> item in someJobs)
+                {
+                foreach (KeyValuePair<string, string> kvp in item)
+                    {
+                    Console.WriteLine(kvp.Key + ":" + kvp.Value);
+                    }
+                   
+                 Console.WriteLine("\n*****");
+            }
         }
     }
 }
